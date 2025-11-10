@@ -1,13 +1,16 @@
 {
   "name": "finsight360_backend",
   "version": "1.0.0",
-  "description": "",
-  "license": "ISC",
-  "author": "",
-  "type": "commonjs",
-  "main": "index.js",
+  "description": "Backend server for Finsight360 — an AI-powered personal finance and stock tracking platform.",
+  "license": "MIT",
+  "author": "Puneet Jain",
+  "type": "module",
+  "main": "src/app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon src/app.js",
+    "start": "node src/app.js",
+    "lint": "eslint .",
+    "format": "prettier --write ."
   },
   "dependencies": {
     "cookie-parser": "^1.4.7",
@@ -17,5 +20,10 @@
     "google-auth-library": "^10.5.0",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.19.3"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0",
+    "eslint": "^9.0.0",
+    "prettier": "^3.3.0"
   }
 }

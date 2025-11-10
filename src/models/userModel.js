@@ -1,4 +1,3 @@
-import { auth } from "google-auth-library";
 import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema({
@@ -7,4 +6,4 @@ const userSchema = new mongoose.Schema({
   authProvider: String,
 });
 
-export default User = mongoose.model("User", userSchema);
+export default mongoose.model("User", userSchema);
