@@ -21,18 +21,16 @@ export const googleAuth = async (req, res) => {
 
     const { accessToken, refreshToken } = generateTokens(user._id);
 
-    res.cookie("access_token", accessToken, {
+    const cookieOptions = {
       httpOnly: true,
-      secure: false,
+      secure: process.env.NODE_ENV === "production",
       sameSite: "lax",
-    });
-    res.cookie("refresh_token", refreshToken, {
-      httpOnly: true,
-      secure: false,
-      sameSite: "lax",
-    });
+    };
 
-    res.status(200).json({ success: true, user });
+    res.cookie("access_token", accessToken, cookieOptions);
+    res.cookie("refresh_token", refreshToken, cookieOptions);
+
+    res.status(200).json({ success: true, user, accessToken });
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Google Auth Failed" });
@@ -48,18 +46,15 @@ export const refreshAccessToken = async (req, res) => {
     const decoded = jwt.verify(token, process.env.JWT_REFRESH_SECRET);
     const { accessToken, refreshToken } = generateTokens(decoded.userId);
 
-    res.cookie("access_token", accessToken, {
+    const cookieOptions = {
       httpOnly: true,
-      secure: false,
+      secure: process.env.NODE_ENV === "production",
       sameSite: "lax",
-    });
-    res.cookie("refresh_token", refreshToken, {
-      httpOnly: true,
-      secure: false,
-      sameSite: "lax",
-    });
+    };
+    res.cookie("access_token", accessToken, cookieOptions);
+    res.cookie("refresh_token", refreshToken, cookieOptions);
 
-    res.status(200).json({ success: true });
+    res.status(200).json({ success: true, accessToken });
   } catch {
     res.status(401).json({ message: "Invalid refresh token" });
   }
